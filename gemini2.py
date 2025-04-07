@@ -1,4 +1,5 @@
 from google import genai
+from google.genai import types
 from dotenv import load_dotenv
 import os
 from taipy import Gui
@@ -7,7 +8,7 @@ from taipy import Gui
 MODEL_ID = "gemini-2.0-flash-exp"
 jasper_img="first_test_image.jpeg"
 CACHED_FILE="cached.name"    # holds name of cached image file in Google Drive
-location = ""
+location=""
 
 def location_changed(state,var_name,value):
     print("Enter pressed")
@@ -19,7 +20,6 @@ def location_changed(state,var_name,value):
           Generate a picture of him near a well-known landmark located in """+state.location+".\n"
           
         print(prompt)
-        
         response = client.models.generate_content(
             model=MODEL_ID,
             contents=[
@@ -35,8 +35,7 @@ def location_changed(state,var_name,value):
                  print("image found")
                  data = part.inline_data.data
                  state.jasper_img=data
-                 state.location=""      # reset the location
-
+                 state.location=""
 
 
 load_dotenv() # GEMINI_API_KEY should be defined in a .env file
@@ -65,12 +64,15 @@ page="""
  
 <|{jasper_img}|image|>
 
-### Enter the location, somewhere in the world, as the setting for the picture.
- 
+### Enter the location, somewhere in the world, as the setting for the picture. 
+
 ### For example:  New York City, Brazil, Korea, Egypt, etc.
 
 <|{location}|input|change_delay=-1|on_action=location_changed|>
 
+
 """
 
 Gui(page).run(port="auto", use_reloader=True)
+
+
