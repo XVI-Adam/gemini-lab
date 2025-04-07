@@ -25,5 +25,7 @@ Generates images of Brother Jasper (MU mascot) near landmarks using the Google G
 
 ```bash
 python your_script_name.py
+```
+
 ![Brother Jasper](before.png)
 ![Brother Jasper in Egypt](after.png)
